@@ -75,4 +75,4 @@ web_bar_1_4b2303ae5a6a | time:2019-02-05T04:49:27+00:00 host:tlsrouter-proxy.bar
 
 ## 構成
 
-FIXME
+[structure](./img/SNI_Proxy.svg)
