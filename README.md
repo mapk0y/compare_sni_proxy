@@ -1,6 +1,6 @@
 ## これは何
 
-SNI(Server Name Indication) を元にルーティングしてくれる以下の各 Proxy で SNI でのルーティングの動作確認を行う docker（docker-compose） の設定。
+SNI（Server Name Indication）を元にルーティングしてくれる以下の各 Proxy ソフトウェアで SNI でのルーティングの動作確認を行う docker（docker-compose）の設定。
 
 - [tcpproxy/cmd/tlsrouter](https://github.com/google/tcpproxy/tree/master/cmd/tlsrouter)
 - [haproxy](http://www.haproxy.org/)
