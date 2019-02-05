@@ -1,0 +1,70 @@
+version: '3.7'
+
+services:
+  # 証明書用イメージ（コンテナとしては利用しない）
+  certs:
+    build: ./certs
+    image: certs 
+
+  # テスト用 goss コンテナ
+  goss:
+    build: ./goss
+    stdin_open: true
+    tty: true
+    init: true
+    networks:
+      default:
+    volumes:
+      - "./goss/:/work/:ro"
+    privileged: true
+
+  # tlsrouter
+  tlsrouter:
+    build: ./tlsrouter
+    networks:
+      default:
+        aliases:
+          - tlsrouter.bar.example.com
+          - tlsrouter.foo.example.com
+          - tlsrouter-proxy.bar.example.com
+          - tlsrouter-proxy.foo.example.com
+
+  # haproxy
+  haproxy:
+    build: ./haproxy
+    networks:
+      default:
+        aliases:
+          - haproxy.bar.example.com
+          - haproxy.foo.example.com
+          - haproxy-proxy.bar.example.com
+          - haproxy-proxy.foo.example.com
+
+  # nginx (ssl_preload)
+  nginx:
+    build: ./nginx
+    networks:
+      default:
+        aliases:
+          - nginx.bar.example.com
+          - nginx.foo.example.com
+          - nginx-proxy.bar.example.com
+          - nginx-proxy.foo.example.com
+
+  # アクセス先 Web コンテナ
+  web_bar:
+    build: ./web_bar
+    networks:
+      default:
+        aliases:
+          - noproxy.bar.example.com
+  web_foo:
+    build: ./web_foo
+    networks:
+      default:
+        aliases:
+          - noproxy.foo.example.com
+
+networks:
+  default:
+

@@ -1,0 +1,49 @@
+
+https://bar.example.com: &bar
+  status: 200
+  allow-insecure: false
+  no-follow-redirects: false
+  timeout: 1000
+  body: ["server: bar", "protocol: https"]
+https://foo.example.com: &foo
+  # required attributes
+  status: 200
+  # optional attributes
+  allow-insecure: false
+  no-follow-redirects: false # Setting this to true will NOT follow redirects
+  timeout: 1000
+  body: ["server: foo", "protocol: https"] # Check http response content for these patterns
+
+http:
+  # noproxy
+  https://noproxy.bar.example.com:
+    <<: *bar
+  https://noproxy.foo.example.com:
+    <<: *foo
+  # tlsrouter
+  https://tlsrouter.bar.example.com:
+    <<: *bar
+  https://tlsrouter.foo.example.com:
+    <<: *foo
+  https://tlsrouter-proxy.bar.example.com:
+    <<: *bar
+  https://tlsrouter-proxy.foo.example.com:
+    <<: *foo
+  # haproxy
+  https://haproxy.bar.example.com:
+    <<: *bar
+  https://haproxy.foo.example.com:
+    <<: *foo
+  https://haproxy-proxy.bar.example.com:
+    <<: *bar
+  https://haproxy-proxy.foo.example.com:
+    <<: *foo
+  # nginx
+  https://nginx.bar.example.com:
+    <<: *bar
+  https://nginx.foo.example.com:
+    <<: *foo
+  https://nginx-proxy.bar.example.com:8443:
+    <<: *bar
+  https://nginx-proxy.foo.example.com:8443:
+    <<: *foo
